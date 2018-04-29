@@ -198,7 +198,7 @@ static PyObject *xxtea_encrypt(PyObject *self, PyObject *args, PyObject *kwargs)
     }
 
     if (klen != 16) {
-        PyErr_SetString(PyExc_ValueError, "Need a 16-byte key.");
+        PyErr_SetString(PyExc_ValueError, "Need a 16-byte key. Encrypt.");
         return NULL;
     }
 
@@ -210,6 +210,12 @@ static PyObject *xxtea_encrypt(PyObject *self, PyObject *args, PyObject *kwargs)
     }
 
     Py_BEGIN_ALLOW_THREADS
+    printf("data: %X, %X, %X, %X, %X, %X, %X, %X", 
+           data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7]);
+    printf("key[0]: %X, %X, %X, %X, %X, %X, %X, %X, %X, %X, %X, %X, %X, %X, %X, %X",
+           key[0], key[1], key[2], key[3], key[4], key[5],
+           key[6], key[7], key[8], key[9], key[10], key[11], key[12], key[13],
+           key[14], key[15]);
     bytes2longs(data, dlen, d, 1);
     bytes2longs(key, klen, k, 0);
     btea(d, alen, k);
